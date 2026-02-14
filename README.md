@@ -110,4 +110,4 @@ NODE_ENV=development
 
 [![Nicolas Santana CV](https://img.shields.io/badge/Nicolas%20Santana-View%20CV-blue?style=for-the-badge&logo=github)](https://nickstoni.github.io/Nicolas-Santana-CV/)
 
-- Patrick Faraji (@fpat)
+- Patrick Faraji (@fpaty)
