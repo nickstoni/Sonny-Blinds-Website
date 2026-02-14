@@ -5,13 +5,13 @@ export default function Home() {
       <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
           <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Quality Window Treatments for Your Home
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-center">
+              Become our partner
             </h1>
-            <p className="text-xl md:text-2xl text-slate-300 mb-8">
+            <p className="text-xl md:text-2xl text-slate-300 mb-8 text-center">
               Transform your space with custom blinds, shades, and shutters. Professional installation and unbeatable quality.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors">
                 Get Free Quote
               </button>
