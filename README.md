@@ -1,8 +1,6 @@
 # Sonny-Blinds-Website
 Website codebase for Sonny Blinds. A business webpage for showcasing custom window treatments, service offerings, and customer inquiries.
 
-[![Created by Nicolas Santana](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://nickstoni.github.io/Nicolas-Santana-CV/)
-
 ##  Overview
 
 The platform is designed to:
@@ -108,5 +106,8 @@ NODE_ENV=development
 
 ## Acknowledgements
 
-- Sonny Blinds Company
+- Nicolas Santana
+
+[![Nicolas Santana CV](https://img.shields.io/badge/Nicolas%20Santana-View%20CV-blue?style=for-the-badge&logo=github)](https://nickstoni.github.io/Nicolas-Santana-CV/)
+
 - Patrick Faraji (@fpat)
