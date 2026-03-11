@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Window frame - matching blue from before -->
+  <rect x="3" y="3" width="26" height="26" rx="2" ry="2" fill="#4A90D9" opacity="0.85"/>
+  
+  <!-- Bold 'S' in light gray -->
+  <text
+    x="16"
+    y="23"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="22"
+    font-weight="bold"
+    text-anchor="middle"
+    fill="#D8D8D8"
+    letter-spacing="-0.5"
+  >S</text>
+</svg>

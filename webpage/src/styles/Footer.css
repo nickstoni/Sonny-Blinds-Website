@@ -1,0 +1,74 @@
+/* ============================================================
+   FOOTER STYLES
+   Styles for the site-wide footer. Dark background, a
+   responsive multi-column grid for content sections, and a
+   thin copyright bar at the very bottom.
+   ============================================================ */
+
+/* --- Footer wrapper ----------------------------------------- */
+
+/* The <footer> element that spans the full width at the bottom of every page */
+.footer {
+  background: var(--dark-color);                  /* Dark background visually separates the footer from the lighter page content above */
+  color: var(--white);                            /* Sets the default text colour to white for contrast against the dark background */
+  padding: 3rem 0 1rem;                           /* 3 rem top padding for breathing room, 0 left/right (handled by .container), 1 rem bottom */
+}
+
+/* --- Footer grid -------------------------------------------- */
+
+/* Auto-responsive grid that arranges the footer content into columns */
+.footer-content {
+  display: grid;                                  /* CSS Grid for a flexible, auto-filling multi-column layout */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Creates as many equal columns as fit, each at least 200 px wide — wraps automatically */
+  gap: 2rem;                                      /* 2 rem gutter between every column and between rows on wrap */
+  margin-bottom: 2rem;                            /* 2 rem gap below the grid before the copyright bar begins */
+}
+
+/* --- Footer column headings --------------------------------- */
+
+/* <h3> brand heading and <h4> section headings inside each footer column */
+.footer-section h3,
+.footer-section h4 {
+  color: var(--white);                            /* Pure white so column headings stand out strongly on the dark background */
+  margin-bottom: 1rem;                            /* 1 rem gap between the column heading and the content beneath it */
+}
+
+/* --- Footer paragraph text ---------------------------------- */
+
+/* Body paragraph text within a footer column (e.g. brief brand description) */
+.footer-section p {
+  color: var(--light-gray);                       /* Light grey is softer than pure white, giving secondary text a subtler tone */
+  line-height: 1.8;                               /* Generous line-height (1.8×) for comfortable readability on dark backgrounds */
+}
+
+/* --- Footer navigation list --------------------------------- */
+
+/* Removes default browser styling from footer <ul> link lists */
+.footer-section ul {
+  list-style: none;                               /* Strips the default bullet points from every unordered list in the footer */
+}
+
+/* Each <li> inside a footer navigation list */
+.footer-section ul li {
+  padding: 0.3rem 0;                              /* Small top/bottom padding spaces list items apart without excessive gaps */
+}
+
+/* Anchor links nested inside footer list items */
+.footer-section ul li a {
+  color: var(--light-gray);                       /* Light grey matches paragraph text colour for visual consistency */
+}
+
+/* Hover colour change for footer navigation links */
+.footer-section ul li a:hover {
+  color: var(--secondary-color);                  /* Switches to gold on hover to signal interactivity within the brand palette */
+}
+
+/* --- Copyright bar ------------------------------------------ */
+
+/* The thin divider line and copyright notice at the very bottom of the footer */
+.footer-bottom {
+  text-align: center;                             /* Centres the copyright text horizontally across the full footer width */
+  padding-top: 2rem;                              /* 2 rem space above the copyright text to clearly separate it from the grid above */
+  border-top: 1px solid rgba(255,255,255,0.1);    /* A faint 1 px white hairline at 10 % opacity subtly divides the bar from the grid */
+  color: var(--light-gray);                       /* Light grey keeps the copyright notice present but visually unobtrusive */
+}

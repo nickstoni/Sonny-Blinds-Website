@@ -1,0 +1,148 @@
+/* ============================================================
+   CONTACT SECTION
+   Styles for the "Contact Us" section. Features a light-grey
+   background, a two-column layout with contact details on the
+   left and a white form card on the right, plus a mobile
+   single-column fallback.
+   ============================================================ */
+
+/* --- Contact section wrapper -------------------------------- */
+
+/* The <section> element that contains all Contact Us content */
+.contact {
+  padding: 5rem 0;                                /* 5 rem top and bottom whitespace separates this section from its neighbours */
+  background: var(--light-color);                 /* Light grey background distinguishes this section from the white sections around it */
+}
+
+/* --- Two-column grid ---------------------------------------- */
+
+/* Grid container that sits inside .container and holds both columns */
+.contact-wrapper {
+  display: grid;                                  /* CSS Grid for precise two-column control */
+  grid-template-columns: 1fr 1fr;                 /* Two equal-width columns; each takes exactly half the available width */
+  gap: 4rem;                                      /* 4 rem gutter between the info column and the form column */
+}
+
+/* --- Info column: section heading --------------------------- */
+
+/* The <h2> heading ("Get In Touch" or similar) inside the info column */
+.contact-info h2 {
+  font-size: 2.5rem;                              /* Large heading to anchor the section and draw immediate visual attention */
+  color: var(--primary-color);                    /* Brand primary colour keeps the heading on-brand */
+  margin-bottom: 1rem;                            /* 1 rem gap between the heading and the introductory paragraph below */
+}
+
+/* --- Info column: intro paragraph --------------------------- */
+
+/* The short introductory body sentence beneath the heading */
+.contact-info > p {
+  font-size: 1.1rem;                              /* Slightly larger than default body text to emphasise this is an introduction */
+  color: var(--gray);                             /* Medium grey so the paragraph reads easily without competing with the heading */
+  margin-bottom: 2rem;                            /* 2 rem gap below the intro before the contact detail items begin */
+}
+
+/* --- Contact detail items: column wrapper ------------------- */
+
+/* Flex column that stacks each detail item (phone, email, address, etc.) */
+.contact-details {
+  display: flex;                                  /* Flexbox to control the spacing and direction of detail items */
+  flex-direction: column;                         /* Stacks detail items vertically, one below the other */
+  gap: 1.5rem;                                    /* 1.5 rem vertical space between each consecutive detail item */
+}
+
+/* --- Contact detail item: label heading --------------------- */
+
+/* The bold label inside each detail block (e.g. "Phone", "Email", "Address") */
+.contact-item h4 {
+  color: var(--primary-color);                    /* Brand primary colour gives the label heading strong visual weight */
+  margin-bottom: 0.5rem;                          /* 0.5 rem gap between the label and the value text directly below it */
+}
+
+/* --- Contact detail item: value text and links -------------- */
+
+/* Body text and anchor links that display the actual contact values */
+.contact-item p,
+.contact-item a {
+  color: var(--gray);                             /* Medium grey keeps the values slightly less prominent than the label headings */
+}
+
+/* Hover colour change for clickable contact links */
+.contact-item a:hover {
+  color: var(--secondary-color);                  /* Switches to gold on hover to signal the link is interactive */
+}
+
+/* --- Social media links row --------------------------------- */
+
+/* Flex row that holds the social media icon/text links side by side */
+.social-links {
+  display: flex;                                  /* Flexbox arranges the social links in a horizontal row */
+  gap: 1rem;                                      /* 1 rem horizontal space between each social media link */
+}
+
+/* Each individual social media anchor */
+.social-links a {
+  color: var(--primary-color);                    /* Brand primary colour so the social links are clearly visible */
+  font-weight: 500;                               /* Medium weight gives the link labels a little more visual presence */
+}
+
+/* Hover colour change for social links */
+.social-links a:hover {
+  color: var(--secondary-color);                  /* Gold on hover for consistent interactive feedback within the info column */
+}
+
+/* --- Contact form card -------------------------------------- */
+
+/* The white elevated card that wraps the whole contact form */
+.contact-form {
+  background: var(--white);                       /* White background lifts the form card above the light-grey section background */
+  padding: 2.5rem;                                /* 2.5 rem internal padding so form fields are not cramped against the card edges */
+  border-radius: 10px;                            /* Rounded corners consistent with other card elements on the page */
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);        /* Subtle drop shadow elevates the card off the page surface */
+}
+
+/* --- Form group: label + input wrapper ---------------------- */
+
+/* Wrapper div that groups each label with its corresponding input or textarea */
+.form-group {
+  margin-bottom: 1.5rem;                          /* 1.5 rem vertical gap between consecutive label/input pairs */
+}
+
+/* --- Form group: label text --------------------------------- */
+
+/* The descriptive <label> that sits above each input field */
+.form-group label {
+  display: block;                                 /* Block display forces the label onto its own line above the input */
+  margin-bottom: 0.5rem;                          /* 0.5 rem gap between the label text and the input field beneath it */
+  color: var(--dark-color);                       /* Dark colour makes labels readable and visually prominent */
+  font-weight: 500;                               /* Medium weight distinguishes label text from lighter input placeholder text */
+}
+
+/* --- Form group: text inputs and textarea ------------------- */
+
+/* Shared styles applied to all text <input> fields and the <textarea> */
+.form-group input,
+.form-group textarea {
+  width: 100%;                                    /* Stretches the field to the full width of the form card */
+  padding: 0.8rem;                                /* Internal padding gives users a comfortable area to type in */
+  border: 2px solid var(--light-gray);            /* Light grey 2 px border clearly defines the field boundary */
+  border-radius: 5px;                             /* Slightly rounded corners match the card and button styles */
+  font-family: inherit;                           /* Uses the site's body font rather than the browser's default form font */
+  font-size: 1rem;                                /* Body font size so input text matches the surrounding UI text */
+  transition: var(--transition);                  /* Smooth border-colour animation when the field gains focus */
+}
+
+/* --- Focus state: highlighted border ----------------------- */
+
+/* Visual indicator shown when a field is clicked into / tabbed to */
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;                                  /* Removes the browser's default blue focus ring to avoid double highlighting */
+  border-color: var(--primary-color);             /* Replaces the grey border with the brand primary colour when focused */
+}
+
+/* --- Textarea-specific rule --------------------------------- */
+
+/* Rule applied only to the <textarea> and not to <input> fields */
+.form-group textarea {
+  resize: vertical;                               /* Allows the user to drag the textarea taller or shorter, but NOT wider */
+}

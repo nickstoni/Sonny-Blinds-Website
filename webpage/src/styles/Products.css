@@ -1,0 +1,97 @@
+/* ============================================================
+   PRODUCTS SECTION
+   Styles for the products showcase. A responsive card grid
+   where each card has a unique background photo, a white
+   overlay that fades on hover to reveal the image, and text
+   that simultaneously fades out so the photo is fully seen.
+   ============================================================ */
+
+/* --- Products section wrapper ------------------------------- */
+
+/* The <section> element containing the products heading and card grid */
+.products {
+  padding: 5rem 0;                                /* 5 rem top/bottom whitespace separates this section from its neighbours */
+  background: var(--white);                       /* White background keeps the section clean and neutral */
+}
+
+/* --- Products card grid ------------------------------------- */
+
+/* Auto-responsive grid that holds all the product cards */
+.products-grid {
+  display: grid;                                  /* CSS Grid for a flexible, auto-filling card layout */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* As many equal columns as fit; each at least 300 px wide; wraps automatically */
+  gap: 2rem;                                      /* 2 rem gutter between every card both horizontally and vertically */
+}
+
+.product-card {
+  background: var(--white);                       /* Default white background; overridden by the per-card image classes below */
+  background-size: cover;                         /* Scales the image to fill the entire card, cropping if needed */
+  background-position: center;                    /* Centres the image so the most visually interesting part shows */
+  padding: 2rem;                                  /* 2 rem internal padding keeps text from pressing against the card edges */
+  border-radius: 10px;                            /* Rounds the card corners for a modern card-style appearance */
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);        /* Subtle drop shadow lifts the card off the page without being dramatic */
+  transition: var(--transition);                  /* Smooth animation for the translateY lift and shadow deepening on hover */
+  text-align: center;                             /* Centres the heading and paragraph text within the card */
+  position: relative;                             /* Required so the ::before overlay can be positioned inside the card */
+  overflow: hidden;                               /* Clips the overlay so it doesn't bleed outside the rounded corners */
+  height: 350px;                                  /* Fixed height so the full image is visible rather than just a sliver */
+  display: flex;                                  /* Flexbox to centre the text content inside the card */
+  flex-direction: column;                         /* Stack h3 and p vertically */
+  justify-content: center;                        /* Vertically centre the text within the card height */
+  align-items: center;                            /* Horizontally centre the text within the card */
+}
+
+/* --- Per-card background images ----------------------------- */
+/* Each rule targets a specific card class and sets its unique background photo */
+.card-vertical-blinds    { background-image: url('../../public/vertical_blind.jpg'); }    /* Background photo for Vertical Blinds card */
+.card-aluminum-blinds    { background-image: url('../../public/aluminum_blind.jpg'); }    /* Background photo for Aluminum Blinds card */
+.card-wood-blinds        { background-image: url('../../public/wood_blind.jpg'); }        /* Background photo for Wood Blinds card */
+.card-faux-blinds        { background-image: url('../../public/faux_blind.jpg'); }        /* Background photo for Faux Wood Blinds card */
+.card-plantation-shutters { background-image: url('../../public/plantation_shutter.jpg'); } /* Background photo for Plantation Shutters card */
+.card-eclipse-shutters   { background-image: url('../../public/eclipse_shutter.jpg'); }   /* Background photo for Eclipse Shutters card */
+
+/* Semi-transparent white overlay sitting between the bg image and the card text.
+   Starts mostly opaque so the image is dimmed, then fades on hover to reveal it. */
+.product-card::before {
+  content: '';                                    /* Required for pseudo-elements to render */
+  position: absolute;                             /* Fills the card without affecting the layout of its children */
+  inset: 0;                                       /* Shorthand for top/right/bottom/left: 0 — covers the whole card */
+  background: rgba(255, 255, 255, 0.82);          /* Heavy white wash by default so the image is subtly present */
+  transition: var(--transition);                  /* Smooth fade when the overlay opacity changes on hover */
+  border-radius: 10px;                            /* Matches the card's own border-radius so edges stay clean */
+  z-index: 0;                                     /* Sits above the background image but below the card content */
+}
+
+.product-card:hover::before {
+  background: rgba(255, 255, 255, 0.08);          /* Nearly transparent on hover so the full background image shows through */
+}
+
+.product-card:hover {
+  transform: translateY(-10px);                   /* Moves the card 10 px upward on hover for a tactile floating / lift effect */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);       /* Deepens the shadow on hover to reinforce the illusion the card is elevated */
+}
+
+.product-card h3 {
+  color: var(--primary-color);                    /* Brand primary colour makes the product name visually prominent */
+  margin-bottom: 1rem;                            /* 1 rem gap between the heading and the description paragraph below */
+  font-size: 1.5rem;                              /* Moderately large size so the product name is clearly readable */
+  position: relative;                             /* Lifts the heading above the ::before overlay */
+  z-index: 1;                                     /* Ensures text renders on top of the overlay layer */
+  opacity: 1;                                     /* Fully visible by default */
+  transition: var(--transition);                  /* Smooth fade-out when hovering the card */
+}
+
+.product-card p {
+  color: var(--gray);                             /* Medium grey keeps the description lighter and less prominent than the heading */
+  line-height: 1.8;                               /* Generous line-height (1.8×) for comfortable reading of multi-line descriptions */
+  position: relative;                             /* Lifts paragraph text above the ::before overlay */
+  z-index: 1;                                     /* Ensures text renders on top of the overlay layer */
+  opacity: 1;                                     /* Fully visible by default */
+  transition: var(--transition);                  /* Smooth fade-out when hovering the card */
+}
+
+/* Hide text when the card is hovered so the image can be fully appreciated */
+.product-card:hover h3,
+.product-card:hover p {
+  opacity: 0;                                     /* Fades the text out completely on hover */
+}

@@ -1,0 +1,128 @@
+/* ============================================================
+   ABOUT SECTION
+   Styles for the "About Us" section of the page. Features a
+   fixed parallax background photo, a dark overlay for contrast,
+   and a responsive two-column layout (text left, image right).
+   ============================================================ */
+
+/* --- About section wrapper ---------------------------------- */
+
+/* The <section> element that contains all About Us content */
+.about {
+  padding: 5rem 0;                                /* 5 rem top and bottom whitespace to separate this section from its neighbours */
+  position: relative;                             /* Establishes a stacking context so the ::before overlay can be layered inside */
+  background-image: url('../../public/aboutus_img.jpg'); /* Full-section background photo loaded from the public folder */
+  background-size: cover;                         /* Scales the photo so it fills the entire section width and height, cropping if needed */
+  background-position: center;                    /* Centres the focal point of the photo so the key subject stays visible */
+  background-attachment: fixed;                   /* Parallax effect: the background stays in place while the page content scrolls over it */
+}
+
+/* --- Dark overlay pseudo-element ---------------------------- */
+
+/* A semi-transparent black layer that dims the photo so text remains readable */
+.about::before {
+  content: '';                                    /* Required — pseudo-elements must have a content value even when displaying no text */
+  position: absolute;                             /* Removed from normal flow so it covers the section without pushing any real content down */
+  inset: 0;                                       /* Shorthand for top:0; right:0; bottom:0; left:0; — stretches the overlay to every edge */
+  background: rgba(0, 0, 0, 0.65);               /* 65 % opaque black — dark enough to ensure all text above it is comfortably readable */
+  z-index: 0;                                     /* Sits above the background image (default z-index) but below the container content */
+}
+
+/* --- Content container: lifted above overlay ---------------- */
+
+/* Ensures the text and grid columns render in front of the dark ::before overlay */
+.about .container {
+  position: relative;                             /* Creates a new stacking context so z-index takes effect */
+  z-index: 1;                                     /* Renders this container and all its children above the z-index:0 overlay */
+}
+
+/* --- Two-column content grid -------------------------------- */
+
+/* Grid wrapper that puts the text block on the left and image on the right */
+.about-content {
+  display: grid;                                  /* CSS Grid chosen for precise, two-column control */
+  grid-template-columns: 1fr 1fr;                 /* Two equal-width columns, each occupying exactly half the available space */
+  gap: 4rem;                                      /* 4 rem gutter between the text and image columns */
+  align-items: center;                            /* Vertically aligns both columns to their shared midpoint */
+}
+
+/* --- Text column: section heading --------------------------- */
+
+/* The <h2> heading ("About Us" or similar) inside the text column */
+.about-text h2 {
+  font-size: 2.5rem;                              /* Large heading to anchor the section and draw immediate visual attention */
+  color: var(--white);                            /* Pure white so the heading pops sharply against the dark-dimmed background */
+  margin-bottom: 1rem;                            /* 1 rem space between the heading and the element directly below it */
+}
+
+/* --- Text column: lead / intro sentence --------------------- */
+
+/* The highlighted introductory sentence, styled larger than body text */
+.about-text .lead {
+  font-size: 1.2rem;                              /* Slightly larger than regular body text to signal this is an intro statement */
+  color: var(--secondary-color);                  /* Gold accent colour; still readable on the dark overlay background */
+  margin-bottom: 1.5rem;                          /* 1.5 rem gap between the lead sentence and the paragraphs below it */
+  font-weight: 500;                               /* Medium weight so the lead sentence is visually heavier than normal body copy */
+}
+
+/* --- Text column: body paragraphs --------------------------- */
+
+/* Regular paragraph text inside the About text column */
+.about-text p {
+  margin-bottom: 1rem;                            /* 1 rem vertical gap between each consecutive paragraph */
+  color: rgba(255, 255, 255, 0.85);               /* Near-white at 85 % opacity — readable against the dark overlay without being harsh */
+  line-height: 1.8;                               /* Generous line-height (1.8×) for comfortable, uncluttered reading */
+}
+
+/* --- Text column: inline paragraph links -------------------- */
+
+/* Anchor tags embedded inside about paragraphs (e.g. links to product pages) */
+.about-text p a {
+  color: var(--secondary-color);                  /* Gold colour to make the links visually distinct from surrounding white text */
+  font-weight: 600;                               /* Semi-bold so the links are unmistakably different from regular paragraph text */
+  text-decoration: underline;                     /* Underline reinforces that these highlighted words are clickable links */
+  transition: var(--transition);                  /* Applies the site-wide CSS transition for a smooth colour change on hover */
+}
+
+/* Hover state for inline paragraph links */
+.about-text p a:hover {
+  color: var(--white);                            /* Brightens to pure white on hover, providing clear interactive feedback */
+}
+
+/* --- Text column: feature list ------------------------------ */
+
+/* Unstyled <ul> listing the key features or selling points */
+.about-list {
+  list-style: none;                               /* Removes the default browser bullet points from the list */
+  margin-top: 2rem;                               /* 2 rem gap between the paragraphs above and the start of the feature list */
+}
+
+/* Each individual item in the feature list */
+.about-list li {
+  padding: 0.5rem 0;                              /* 0.5 rem top and bottom padding to add vertical breathing room between list items */
+  color: rgba(255, 255, 255, 0.9);                /* Near-white at 90 % opacity — highly readable on the dark overlay background */
+  font-weight: 500;                               /* Medium weight gives each list item a bit more visual presence */
+}
+
+/* --- Image column ------------------------------------------- */
+
+/* Wrapper div for the right-side image or placeholder element */
+.about-image {
+  position: relative;                             /* Positioning context in case any child elements need to be absolutely positioned */
+}
+
+/* --- Image placeholder card --------------------------------- */
+
+/* A gradient-filled box shown in place of a real photo */
+.image-placeholder {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #1a4560 100%); /* 135° diagonal gradient from brand primary to a deeper navy blue */
+  height: 400px;                                  /* Fixed 400 px height so the placeholder fills the image column visually */
+  border-radius: 10px;                            /* Rounded corners match the card and button styles elsewhere on the page */
+  display: flex;                                  /* Flexbox to centre the text label both horizontally and vertically */
+  align-items: center;                            /* Vertically centres the label text within the 400 px height */
+  justify-content: center;                        /* Horizontally centres the label text within the column width */
+  color: var(--white);                            /* White text so the label is readable against the dark gradient */
+  font-size: 1.5rem;                              /* Moderately large text to fill the placeholder without looking tiny */
+  font-weight: 600;                               /* Semi-bold weight gives the label visual substance inside the large box */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);       /* Drop shadow beneath the placeholder card to give it depth and lift */
+}

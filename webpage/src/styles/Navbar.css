@@ -1,0 +1,264 @@
+/* ============================================================
+   NAVBAR STYLES
+   Controls the layout, appearance, and dropdown behaviour
+   of the site-wide navigation bar.
+   ============================================================ */
+
+/* --- Navbar container ---------------------------------------- */
+
+/* The <nav> element itself — sits across the full width of the page */
+.navbar {
+  background: var(--white);                       /* White background so the bar stands out from page content */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);         /* Subtle drop-shadow underneath to lift the bar visually */
+  position: sticky;                               /* Sticks to the top of the viewport as the user scrolls */
+  top: 0;                                         /* Anchors the sticky bar at the very top edge of the viewport */
+  z-index: 1000;                                  /* Stacks the navbar above most page elements (higher = in front) */
+}
+
+/* Inner flex row that holds the logo, hamburger, and nav links */
+.nav-wrapper {
+  display: flex;                                  /* Arranges children (logo, menu) in a horizontal row */
+  justify-content: space-between;                 /* Pushes logo to the left and nav links to the right */
+  align-items: center;                            /* Vertically centres all children within the 80 px row */
+  padding: 0.5rem 0;                              /* Adds a small top/bottom cushion inside the wrapper */
+  height: 80px;                                   /* Fixed height keeps the bar a consistent 80 px tall */
+}
+
+/* --- Logo ---------------------------------------------------- */
+
+/* Wrapper div around the logo image */
+.logo {
+  display: flex;                                  /* Uses flexbox so the image can be aligned easily */
+  align-items: center;                            /* Vertically centres the image within the logo div */
+  justify-content: flex-start;                    /* Aligns the image to the left edge of the logo div */
+  margin: -10rem;                                 /* Large negative margin pulls the oversized logo image into place without affecting page flow */
+}
+
+/* The actual <img> tag for the logo */
+.logo-img {
+  height: 150px;                                  /* Displays the logo at 150 px tall regardless of its natural size */
+  width: auto;                                    /* Lets the width scale proportionally so the logo isn't distorted */
+  object-fit: contain;                            /* Ensures the image fits within its box without cropping */
+  transition: var(--transition);                  /* Smooth transition for hover effects (opacity, scale) */
+}
+
+/* Hover state for the logo image */
+.logo-img:hover {
+  opacity: 0.8;                                   /* Dims the logo slightly to give a subtle interactive feedback */
+  transform: scale(1.02);                         /* Very slightly enlarges the logo on hover for a tactile feel */
+}
+
+/* --- Nav link list ------------------------------------------- */
+
+/* The <ul> that wraps all navigation links */
+.nav-menu {
+  display: flex;                                  /* Lays out list items in a horizontal row */
+  list-style: none;                               /* Removes the default bullet points from the list */
+  gap: 2rem;                                      /* Adds 2 rem of space between each list item */
+  align-items: center;                            /* Vertically centres all list items within the nav bar */
+}
+
+/* Every anchor tag that sits directly inside a nav list item */
+.nav-menu li a {
+  color: var(--dark-color);                       /* Uses the site's dark text colour so links are readable */
+  font-weight: 500;                               /* Medium weight — heavier than body text but not full bold */
+  transition: var(--transition);                  /* Smooth colour change when hovering */
+}
+
+/* Colour change when a nav link is hovered */
+.nav-menu li a:hover {
+  color: var(--primary-color);                    /* Switches to the brand's primary colour on hover */
+}
+
+/* --- "Contact Us" call-to-action button ---------------------- */
+
+/* The highlighted "CONTACT US" button in the nav */
+.btn-quote {
+  background: var(--secondary-color);             /* Filled with the brand's secondary (gold/amber) colour */
+  color: var(--white);                            /* White text so it contrasts against the coloured background */
+  padding: 0.7rem 1.5rem;                         /* Comfortable click target: 0.7 rem top/bottom, 1.5 rem left/right */
+  border-radius: 5px;                             /* Rounds the corners so it looks like a pill-style button */
+  font-weight: 600;                               /* Semi-bold weight makes the label easy to read at a glance */
+}
+
+/* Hover state for the CTA button */
+.btn-quote:hover {
+  background: #d69537;                            /* Slightly darker gold on hover to show it's interactive */
+  color: var(--white);                            /* Keeps text white so it stays readable against the darker bg */
+}
+
+/* --- Separator pipes between nav items ----------------------- */
+
+/* The decorative "|" characters between nav sections */
+.separator {
+  color: #1a4560;                                 /* Dark navy colour for the pipe, matching the brand palette */
+  font-weight: 300;                               /* Light weight so the pipe looks decorative, not dominant */
+  user-select: none;                              /* Prevents users from accidentally highlighting the pipe when selecting text */
+  pointer-events: none;                           /* Makes the pipe unclickable — it is purely visual */
+}
+
+/* ============================================================
+   DROPDOWN MENUS (regular + mega)
+   Dropdowns are hidden by default and revealed by adding the
+   .open class via React state (no pure-CSS :hover needed).
+   ============================================================ */
+
+/* --- Dropdown trigger <li> ----------------------------------- */
+
+/* Any list item that contains a dropdown panel */
+.dropdown {
+  position: relative;                             /* Establishes a positioning context so the absolute dropdown panel aligns to this item */
+}
+
+/* The clickable link that triggers a dropdown */
+.dropdown-toggle {
+  cursor: pointer;                                /* Shows a hand cursor so users know this area is interactive */
+  display: flex;                                  /* Puts the label text and chevron arrow side-by-side */
+  align-items: center;                            /* Vertically centres the text and chevron with each other */
+  gap: 0.4rem;                                    /* Small gap between the link text and the chevron icon */
+}
+
+/* --- Chevron arrow icon -------------------------------------- */
+
+/* CSS-only downward-pointing triangle used as a dropdown arrow */
+.chevron-down {
+  width: 0;                                       /* Zero width — the triangle is drawn entirely with borders */
+  height: 0;                                      /* Zero height — same reason as above */
+  border-left: 4px solid transparent;             /* Left border is transparent, forming the left side of the triangle */
+  border-right: 4px solid transparent;            /* Right border is transparent, forming the right side of the triangle */
+  border-top: 5px solid currentColor;             /* Top border is coloured — this becomes the visible triangle shape */
+  transition: var(--transition);                  /* Smooth animation when the chevron nudges downward on hover */
+  margin-left: 0.2rem;                            /* A tiny bit of extra space between the chevron and the link text */
+}
+
+/* Nudge the chevron down when the parent dropdown is open */
+.dropdown.open .chevron-down {
+  transform: translateY(2px);                     /* Shifts the arrow 2 px downward as a visual cue that the menu is open */
+}
+
+/* --- Regular dropdown panel ---------------------------------- */
+
+/* The panel that appears below a dropdown trigger */
+.dropdown-content {
+  display: none;                                  /* Hidden by default — shown only when .open is added via React */
+  position: absolute;                             /* Taken out of normal flow; positioned relative to the .dropdown <li> */
+  top: 2.5rem;                                    /* Drops the panel 2.5 rem below the top of the trigger item */
+  left: 0;                                        /* Aligns the panel's left edge with the trigger item's left edge */
+  background: rgba(255, 255, 255, 0.5);           /* Semi-transparent white background for the frosted-glass look */
+  backdrop-filter: blur(10px);                    /* Blurs whatever is behind the panel, completing the frosted-glass effect */
+  min-width: 220px;                               /* Ensures the panel is at least 220 px wide even for short link labels */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);         /* Soft shadow underneath to lift the panel off the page */
+  border-radius: 5px;                             /* Rounds the corners to match the rest of the UI's style */
+  padding: 1rem 0;                                /* Vertical padding inside the panel so links aren't flush with the edges */
+  z-index: 1001;                                  /* One level above the navbar (1000) so the panel renders on top */
+}
+
+/* Show the regular dropdown panel when .open is present (set by React) */
+.dropdown-content.open {
+  display: block;                                 /* Overrides display:none to make the panel visible */
+}
+
+/* Customer Support dropdown — pinned to the viewport exactly like the mega menu,
+   so it appears flush with the bottom of the 80 px navbar instead of floating
+   just below its own trigger element */
+.support-content {
+  position: fixed;                                /* Anchors the panel to the viewport, not the parent <li> */
+  top: 80px;                                      /* Places the panel immediately below the 80 px navbar, matching the mega menu */
+  left: auto;                                     /* Overrides the left:0 from .dropdown-content so the panel stays near the trigger */
+}
+
+/* Individual links inside a regular dropdown panel */
+.dropdown-content a {
+  display: block;                                 /* Each link takes up the full row width, not just its text width */
+  padding: 0.75rem 1.5rem;                        /* Comfortable click area: 0.75 rem top/bottom, 1.5 rem left/right */
+  color: var(--dark-color);                       /* Dark text colour so links are readable on the light panel */
+  font-weight: 600;                               /* Semi-bold so the labels stand out clearly */
+  transition: var(--transition);                  /* Smooth background, colour, and padding changes on hover */
+}
+
+/* Hover highlight for links inside a regular dropdown */
+.dropdown-content a:hover {
+  background: rgba(232, 164, 72, 0.2);            /* Faint warm gold tint on hover to match the brand palette */
+  color: var(--primary-color);                    /* Changes text to the primary brand colour on hover */
+  padding-left: 1.75rem;                          /* Slightly increases left indent on hover for a slide-in effect */
+}
+
+/* ============================================================
+   MEGA MENU
+   Full-width panel that spans the entire viewport width,
+   shown below the navbar when Products & Services is opened.
+   ============================================================ */
+
+/* The full-width panel for the mega menu */
+.mega-menu .mega-content {
+  position: fixed;                                /* Fixed positioning anchors the panel to the viewport, not the parent element */
+  left: 0;                                        /* Stretches the panel all the way to the left edge of the browser window */
+  right: 0;                                       /* Stretches the panel all the way to the right edge of the browser window */
+  width: 100vw;                                   /* Explicitly sets width to 100% of the viewport width as a safety measure */
+  padding: 2rem;                                  /* Generous internal padding so the grid columns don't feel cramped */
+  top: 80px;                                      /* Positions the panel immediately below the 80 px tall navbar */
+  background: rgba(255, 255, 255, 0.5);           /* Same semi-transparent white as regular dropdowns for visual consistency */
+  backdrop-filter: blur(10px);                    /* Frosted-glass blur on everything behind the mega panel */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);         /* Drop-shadow below the mega panel for depth */
+}
+
+/* --- Mega menu grid layout ----------------------------------- */
+
+/* The 4-column grid that organises the product categories */
+.mega-menu-grid {
+  display: grid;                                  /* CSS Grid gives precise column control */
+  grid-template-columns: repeat(4, 1fr);          /* Four equal-width columns — one per product category */
+  gap: 2rem;                                      /* 2 rem gutter between every column and row */
+  max-width: 1200px;                              /* Caps the grid at 1200 px so it doesn't stretch on ultra-wide screens */
+  margin: 0 auto;                                 /* Auto left/right margin centres the grid horizontally */
+}
+
+/* Category heading (e.g. "BLINDS", "SHUTTERS") inside each mega menu column */
+.mega-menu-column h3 {
+  color: var(--primary-color);                    /* Brand primary colour for the headings so they pop */
+  font-size: 1.1rem;                              /* Slightly larger than body text to mark these as section titles */
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* Branded font stack */
+  font-weight: 600;                               /* Semi-bold to distinguish headings from the links below */
+  margin-bottom: 1rem;                            /* Space between the heading and the first link beneath it */
+  padding-bottom: 0.5rem;                         /* Padding above the border line under the heading */
+  border-bottom: 2px solid var(--secondary-color); /* Gold underline separator beneath each category heading */
+}
+
+/* Individual product links inside a mega menu column */
+.mega-menu-column a {
+  display: block;                                 /* Each link fills the full column width for an easy click target */
+  padding: 0.5rem 0;                              /* Vertical padding to space links apart from each other */
+  color: var(--dark-color);                       /* Dark text so links are readable on the light panel */
+  font-weight: 600;                               /* Semi-bold weight keeps the text prominent */
+  transition: var(--transition);                  /* Smooth colour and padding changes on hover */
+}
+
+/* Hover effect for mega menu links */
+.mega-menu-column a:hover {
+  color: var(--primary-color);                    /* Switches to brand primary colour to show the link is active */
+  padding-left: 0.5rem;                           /* Slight left indent on hover for a slide-in micro-animation */
+}
+
+/* ============================================================
+   MOBILE HAMBURGER BUTTON
+   Hidden on desktop; visible on small screens to toggle the menu.
+   ============================================================ */
+
+/* The hamburger <button> element */
+.mobile-menu-toggle {
+  display: none;                                  /* Hidden on desktop — only shown via media query on small screens */
+  flex-direction: column;                         /* Stacks the three bar <span>s vertically */
+  background: none;                               /* Removes the default browser button background */
+  border: none;                                   /* Removes the default browser button border */
+  cursor: pointer;                                /* Shows a hand cursor to indicate this is clickable */
+  padding: 0.5rem;                                /* Adds a comfortable tap target around the three bars */
+}
+
+/* Each of the three horizontal bars that make up the hamburger icon */
+.mobile-menu-toggle span {
+  width: 25px;                                    /* Each bar is 25 px wide */
+  height: 3px;                                    /* Each bar is 3 px tall — thin enough to look like a line */
+  background: var(--dark-color);                  /* Dark colour so the bars are visible on the white navbar */
+  margin: 3px 0;                                  /* 3 px gap between each bar to form the classic hamburger shape */
+  transition: var(--transition);                  /* Smooth transition for any future open/close animations */
+}

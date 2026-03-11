@@ -1,0 +1,78 @@
+/* ============================================================
+   HERO SECTION
+   Styles for the full-width banner at the top of the page.
+   Layers: (1) diagonal gradient background, (2) a subtle SVG
+   texture pattern via ::before, (3) a dark tint overlay div,
+   (4) centred headline content in front of everything.
+   ============================================================ */
+
+/* --- Hero section wrapper ----------------------------------- */
+
+/* The outermost <section> element that forms the hero banner */
+.hero {
+  position: relative;                             /* Establishes a stacking context so child overlays can be positioned inside it */
+  min-height: 600px;                              /* Guarantees the banner is at least 600 px tall even if the inner content is short */
+  display: flex;                                  /* Flexbox makes centring the hero content block straightforward */
+  align-items: center;                            /* Vertically centres .hero-content within the full section height */
+  justify-content: center;                        /* Horizontally centres .hero-content within the full section width */
+  text-align: center;                             /* Centres all inline text (headings, subheading) inside .hero-content */
+  color: var(--white);                            /* Default text colour for the section set to white for contrast over the gradient */
+  background: linear-gradient(135deg, var(--primary-color) 0%, #1a4560 100%); /* 135° diagonal gradient from brand primary to a deeper navy blue */
+  overflow: hidden;                               /* Clips the ::before SVG overlay so it cannot bleed outside the section boundary */
+}
+
+/* --- Decorative SVG texture overlay ------------------------- */
+
+/* A very faint wave-and-rectangle SVG pattern that adds subtle texture to the gradient */
+.hero::before {
+  content: '';                                    /* Required — pseudo-elements must declare content even when displaying nothing */
+  position: absolute;                             /* Removed from normal flow so it layers over the gradient without shifting content */
+  top: 0;                                         /* Pins the overlay to the top edge of .hero */
+  left: 0;                                        /* Pins the overlay to the left edge of .hero */
+  right: 0;                                       /* Pins the overlay to the right edge of .hero */
+  bottom: 0;                                      /* Pins the overlay to the bottom edge of .hero */
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23ffffff" fill-opacity="0.05" width="1200" height="600"/><path fill="%23ffffff" fill-opacity="0.03" d="M0,300 Q300,150 600,300 T1200,300 L1200,600 L0,600 Z"/></svg>') no-repeat center; /* Inline data-URI SVG: a nearly invisible white rectangle + gentle wave path for organic texture */
+  background-size: cover;                         /* Scales the SVG to fill the entire section evenly regardless of viewport size */
+  opacity: 0.3;                                   /* Reduces the pattern to 30 % opacity so it stays a subtle background texture */
+}
+
+/* --- Dark tint layer ---------------------------------------- */
+
+/* A semi-transparent black <div> layered between the gradient and the text content */
+.hero-overlay {
+  position: absolute;                             /* Removed from normal flow so it covers the section without displacing content */
+  top: 0;                                         /* Pins the tint layer to the top edge of the section */
+  left: 0;                                        /* Pins the tint layer to the left edge of the section */
+  right: 0;                                       /* Pins the tint layer to the right edge of the section */
+  bottom: 0;                                      /* Pins the tint layer to the bottom edge of the section */
+  background: rgba(0,0,0,0.2);                    /* 20 % opaque black tint subtly deepens the gradient colours for visual depth */
+}
+
+/* --- Hero content block ------------------------------------- */
+
+/* The centred container that holds the title, subtitle, and any CTA buttons */
+.hero-content {
+  position: relative;                             /* Creates a stacking context so z-index takes effect here */
+  z-index: 2;                                     /* Ensures the content renders above both ::before (no explicit z-index) and .hero-overlay */
+  max-width: 800px;                               /* Caps content at 800 px wide so text lines don't stretch across ultra-wide screens */
+  padding: 2rem;                                  /* 2 rem internal padding prevents text from touching the very edges on small screens */
+}
+
+/* --- Hero main title ---------------------------------------- */
+
+/* The primary large heading that is the focal point of the hero banner */
+.hero-title {
+  font-size: 3.5rem;                              /* Very large type makes the headline the strongest visual element on the page */
+  font-weight: 700;                               /* Bold weight maximises visual impact for the main headline */
+  margin-bottom: 1.5rem;                          /* 1.5 rem gap between the title and the subtitle element below it */
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);       /* Soft drop shadow (2 px right, 2 px down, 4 px blur) keeps text legible over any background */
+}
+
+/* --- Hero subtitle ------------------------------------------ */
+
+/* The secondary sentence or tagline below the main title */
+.hero-subtitle {
+  font-size: 1.3rem;                              /* Larger than body text but smaller than the title to establish a clear size hierarchy */
+  margin-bottom: 2rem;                            /* 2 rem gap between the subtitle and any buttons or content beneath it */
+  opacity: 0.95;                                  /* Very slightly transparent (95 %) so the subtitle feels softer and secondary to the title */
+}
