@@ -1,4 +1,5 @@
 import '../styles/Products.css';
+import { Link } from 'react-router-dom';
 
 function Products() {
   return (
@@ -10,29 +11,29 @@ function Products() {
         </div>
         
         <div className="products-grid">
-          <div className="product-card card-vertical-blinds">
+          <Link to="/blinds/vertical" className="product-card card-vertical-blinds">
             <h3>Vertical Blinds</h3>
-          </div>
+          </Link>
           
-          <div className="product-card card-aluminum-blinds">
+          <Link to="/blinds/aluminum" className="product-card card-aluminum-blinds">
             <h3>Aluminum Blinds</h3>
-          </div>
+          </Link>
           
-          <div className="product-card card-wood-blinds">
+          <Link to="/blinds/wood" className="product-card card-wood-blinds">
             <h3>Wood Blinds</h3>
-          </div>
+          </Link>
           
-          <div className="product-card card-faux-blinds">
+          <Link to="/blinds/faux" className="product-card card-faux-blinds">
             <h3>Faux Blinds</h3>
-          </div>
+          </Link>
           
-          <div className="product-card card-plantation-shutters">
+          <Link to="/shutters/plantation" className="product-card card-plantation-shutters">
             <h3>Plantation Shutters</h3>
-          </div>
+          </Link>
           
-          <div className="product-card card-eclipse-shutters">
+          <Link to="/shutters/eclipse" className="product-card card-eclipse-shutters">
             <h3>Eclipse® Shutters</h3>
-          </div>
+          </Link>
         </div>
       </div>
     </section>

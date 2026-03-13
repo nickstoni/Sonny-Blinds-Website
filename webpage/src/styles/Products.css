@@ -10,8 +10,21 @@
 
 /* The <section> element containing the products heading and card grid */
 .products {
-  padding: 5rem 0;                                /* 5 rem top/bottom whitespace separates this section from its neighbours */
-  background: var(--white);                       /* White background keeps the section clean and neutral */
+  position: relative;                             /* Establishes a local positioning context for layering and overlap effects */
+  margin-top: -170px;                             /* Pulls the products section upward so it sits over the hero bottom */
+  padding: 0 0 5.75rem;                           /* Removes top padding while preserving generous bottom spacing below the cards */
+  background: transparent;                        /* Leaves the section itself see-through so the overlap can reveal content behind it */
+  z-index: 4;                                     /* Places the products section above the hero layers during overlap */
+}
+
+.products .container {
+  position: relative;                             /* Allows z-index to apply and keeps this panel in normal document flow */
+  z-index: 1;                                     /* Ensures the white panel sits above section background and pseudo-layers */
+  max-width: 1080px;                              /* Constrains panel width so side background remains visible */
+  padding: 3rem 2rem 3.25rem;                     /* Creates interior breathing room around heading and grid */
+  border-radius: 20px;                            /* Rounds panel corners to create the floating card effect */
+  background: white;                              /* Solid white panel background for clear contrast against imagery */
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.12);    /* Adds depth so the panel appears elevated over the hero */
 }
 
 /* --- Products card grid ------------------------------------- */
@@ -19,7 +32,7 @@
 /* Auto-responsive grid that holds all the product cards */
 .products-grid {
   display: grid;                                  /* CSS Grid for a flexible, auto-filling card layout */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* As many equal columns as fit; each at least 300 px wide; wraps automatically */
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* Three equal columns on desktop for a balanced product layout */
   gap: 2rem;                                      /* 2 rem gutter between every card both horizontally and vertically */
 }
 
@@ -94,4 +107,32 @@
 .product-card:hover h3,
 .product-card:hover p {
   opacity: 0;                                     /* Fades the text out completely on hover */
+}
+
+@media (max-width: 1100px) {
+  .products .container {
+    max-width: 980px;                             /* Slightly narrows the floating panel to fit medium viewports better */
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Switches to two columns for tablets/smaller laptops */
+  }
+}
+
+@media (max-width: 768px) {
+  .products {
+    margin-top: -110px;                           /* Uses a gentler overlap on mobile to avoid crowding smaller screens */
+    padding: 0 0 4.5rem;                          /* Reduces bottom spacing on mobile while preserving visual comfort */
+  }
+
+  .products .container {
+    margin: 0 0.85rem;                            /* Adds horizontal breathing room so panel doesn't touch viewport edges */
+    padding: 2.2rem 1.15rem 2.5rem;               /* Tightens panel spacing for smaller screens without feeling cramped */
+    border-radius: 14px;                          /* Slightly smaller radius to match mobile proportions */
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;                   /* Stacks cards in a single column for narrow devices */
+    gap: 1.4rem;                                  /* Reduces card spacing to keep scroll length manageable on mobile */
+  }
 }

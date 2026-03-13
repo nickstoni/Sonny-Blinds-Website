@@ -11,7 +11,8 @@
 /* The outermost <section> element that forms the hero banner */
 .hero {
   position: relative;                             /* Establishes a stacking context so child overlays can be positioned inside it */
-  min-height: 600px;                              /* Guarantees the banner is at least 600 px tall even if the inner content is short */
+  min-height: 700px;                              /* Added depth so the hero extends further downward behind the next section */
+  padding-bottom: 170px;                          /* Creates extra bottom area for the products overlap effect */
   display: flex;                                  /* Flexbox makes centring the hero content block straightforward */
   align-items: center;                            /* Vertically centres .hero-content within the full section height */
   justify-content: center;                        /* Horizontally centres .hero-content within the full section width */
@@ -19,6 +20,30 @@
   color: var(--white);                            /* Default text colour for the section set to white for contrast over the gradient */
   background: linear-gradient(135deg, var(--primary-color) 0%, #1a4560 100%); /* 135° diagonal gradient from brand primary to a deeper navy blue */
   overflow: hidden;                               /* Clips the ::before SVG overlay so it cannot bleed outside the section boundary */
+}
+
+.hero-slides {
+  position: absolute;                             /* Removes slide layer from normal flow so it can fill and move inside the hero */
+  inset: -120px 0;                                /* Expands slide layer 120 px above and below hero for smoother parallax movement */
+  z-index: 0;                                     /* Places slides at the back, beneath overlays and text */
+  will-change: transform;                         /* Hints to the browser that transforms change often for smoother animation */
+}
+
+.hero-image {
+  position: absolute;                             /* Stacks every image in the same footprint for crossfade transitions */
+  top: 0;                                         /* Anchors image layer to the top edge of .hero-slides */
+  left: 0;                                        /* Anchors image layer to the left edge of .hero-slides */
+  right: 0;                                       /* Anchors image layer to the right edge of .hero-slides */
+  bottom: 0;                                      /* Anchors image layer to the bottom edge of .hero-slides */
+  background-position: center center;             /* Keeps the focal point of each image centered within the frame */
+  background-size: cover;                         /* Scales image to fully cover the layer while preserving aspect ratio */
+  background-repeat: no-repeat;                   /* Prevents image tiling if the asset is smaller than container dimensions */
+  opacity: 0;                                     /* Keeps non-active slides hidden until activated */
+  transition: opacity 900ms linear;               /* Uses a long linear fade for smoother perceived brightness during transitions */
+}
+
+.hero-image.is-active {
+  opacity: 1;                                     /* Shows only the currently active slide image */
 }
 
 /* --- Decorative SVG texture overlay ------------------------- */
@@ -34,6 +59,7 @@
   background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23ffffff" fill-opacity="0.05" width="1200" height="600"/><path fill="%23ffffff" fill-opacity="0.03" d="M0,300 Q300,150 600,300 T1200,300 L1200,600 L0,600 Z"/></svg>') no-repeat center; /* Inline data-URI SVG: a nearly invisible white rectangle + gentle wave path for organic texture */
   background-size: cover;                         /* Scales the SVG to fill the entire section evenly regardless of viewport size */
   opacity: 0.3;                                   /* Reduces the pattern to 30 % opacity so it stays a subtle background texture */
+  z-index: 1;
 }
 
 /* --- Dark tint layer ---------------------------------------- */
@@ -46,6 +72,42 @@
   right: 0;                                       /* Pins the tint layer to the right edge of the section */
   bottom: 0;                                      /* Pins the tint layer to the bottom edge of the section */
   background: rgba(0,0,0,0.2);                    /* 20 % opaque black tint subtly deepens the gradient colours for visual depth */
+  z-index: 1;
+}
+
+.hero-arrow {
+  position: absolute;                             /* Detaches arrows from content flow so they can sit over the hero */
+  top: 50%;                                       /* Vertically positions arrows at the midpoint of the hero */
+  transform: translateY(-50%);                    /* Offsets by half their own height to center exactly */
+  width: 48px;                                    /* Gives each arrow button a fixed circular tap target */
+  height: 48px;                                   /* Keeps the button shape perfectly square before radius is applied */
+  border: none;                                   /* Removes default button border for a cleaner overlay look */
+  border-radius: 999px;                           /* Rounds the button into a full pill/circle */
+  background: rgba(255, 255, 255, 0.16);          /* Adds a subtle translucent white backing for legibility */
+  color: var(--white);                            /* Sets the arrow glyph color to white for contrast on photos */
+  font-size: 2.2rem;                              /* Enlarges arrow symbols for readability and touch confidence */
+  line-height: 1;                                 /* Prevents extra vertical text spacing inside the button */
+  cursor: pointer;                                /* Displays pointer cursor to indicate click interaction */
+  z-index: 3;                                     /* Places arrows above overlays and slide imagery */
+  transition: background-color 200ms ease, opacity 200ms ease; /* Smoothly animates hover background and opacity changes */
+}
+
+.hero-arrow:hover {
+  background: rgba(255, 255, 255, 0.28);          /* Brightens button background on hover to reinforce interactivity */
+  opacity: 0.75;                                  /* Slightly dims full control to create gentle hover feedback */
+}
+
+.hero-arrow:focus-visible {
+  outline: 2px solid var(--white);                /* Draws a clear keyboard-focus ring for accessibility */
+  outline-offset: 2px;                            /* Moves the focus ring outward so it doesn't overlap glyph edges */
+}
+
+.hero-arrow-left {
+  left: 1rem;                                     /* Places previous-arrow control near the left side of the hero */
+}
+
+.hero-arrow-right {
+  right: 1rem;                                    /* Places next-arrow control near the right side of the hero */
 }
 
 /* --- Hero content block ------------------------------------- */
@@ -56,6 +118,16 @@
   z-index: 2;                                     /* Ensures the content renders above both ::before (no explicit z-index) and .hero-overlay */
   max-width: 800px;                               /* Caps content at 800 px wide so text lines don't stretch across ultra-wide screens */
   padding: 2rem;                                  /* 2 rem internal padding prevents text from touching the very edges on small screens */
+  transition: opacity 420ms ease-out, transform 420ms ease-out; /* Softens scroll-driven opacity/position updates for smoother text motion */
+}
+
+.hero-copy {
+  animation: heroTextReveal 1300ms cubic-bezier(0.2, 0.7, 0.2, 1) both; /* Plays a slower reveal each time slide text switches */
+}
+
+.hero .container {
+  position: relative;                             /* Establishes a local stacking context for hero text container */
+  z-index: 2;                                     /* Keeps main copy above overlays and pseudo-elements */
 }
 
 /* --- Hero main title ---------------------------------------- */
@@ -75,4 +147,16 @@
   font-size: 1.3rem;                              /* Larger than body text but smaller than the title to establish a clear size hierarchy */
   margin-bottom: 2rem;                            /* 2 rem gap between the subtitle and any buttons or content beneath it */
   opacity: 0.95;                                  /* Very slightly transparent (95 %) so the subtitle feels softer and secondary to the title */
+}
+
+@keyframes heroTextReveal {
+  from {
+    opacity: 0;                                   /* Starts text fully transparent at the beginning of reveal */
+    transform: translateY(36px);                  /* Starts text slightly lower before easing upward */
+  }
+
+  to {
+    opacity: 1;                                   /* Ends text fully visible after animation completes */
+    transform: translateY(0);                     /* Ends text at its natural resting position */
+  }
 }
